@@ -125,7 +125,7 @@ def run_attack(
 
             image, label_ = image.to(device), label_.to(device).squeeze(1).long()
             
-            adv_log_pred = predict(
+            _, adv_image = predict(
               model=model,
               image=image,
               target=attack_label_arr[k],
@@ -133,7 +133,7 @@ def run_attack(
               attack=attack
             )
             
-            adv_images_arr.append(adv_log_pred)
+            adv_images_arr.append(adv_image)
 
         # performance monitoring
         end.record()
