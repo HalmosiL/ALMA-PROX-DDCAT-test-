@@ -17,8 +17,11 @@ def predict(model, image, target, device, attack=None):
     input = image.float()
     target = target.long()
 
-    input = input.unsqueeze(0).to(device)
-    target = target.unsqueeze(0).to(device)
+    input = input.to(device)
+    target = target.to(device)
+
+    print("FORWARD:", input.shape)
+    print("FORWARD:", target.shape)
 
     if attack is not None:
         adver_input = attack(
@@ -44,8 +47,5 @@ def predict(model, image, target, device, attack=None):
 
     output = F.softmax(output, dim=1)
     output = output[0]
-
-    output = output.data.cpu().numpy()
-    output = output.transpose(1, 2, 0)
 
     return output
