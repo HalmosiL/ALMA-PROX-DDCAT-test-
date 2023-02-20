@@ -44,6 +44,9 @@ def predict(model, image, target, device, attack=None):
         print((target == output_).sum() / (449*449))
         print((target == output_normal).sum() / (449*449))
         
+        print(output_normal)
+        print(target)
+        
     else:
         with torch.no_grad():
             output = model(input)
