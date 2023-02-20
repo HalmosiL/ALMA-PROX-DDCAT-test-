@@ -31,7 +31,7 @@ def get_cityscapes_resized(root="", size=None, split="", num_images=None, batch_
     return loader
 
 device = "cuda:2"
-model = load_model("/models/cityscapes/pspnet/ddcat/train_epoch_400.pth", device)
+model = load_model("/models/cityscapes/pspnet/ddcat/train_epoch_400.pth", device).eval()
 
 loader = get_cityscapes_resized(
     root="./data/cityscapes/",
