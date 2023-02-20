@@ -20,11 +20,13 @@ def predict(model, image, target, device, attack=None):
 
         with torch.no_grad():
             output = model(adver_input)
+            output_normal = model(input)
             
         print(output.shape)
         print(target.shape)
         
         print((target == output.argmax(1)).sum() / ((449*449) - (target==255).sum()))
+        print((target == output_normal.argmax(1)).sum() / ((449*449) - (target==255).sum()))
         
     else:
         with torch.no_grad():
