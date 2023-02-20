@@ -1,5 +1,6 @@
 from network import PSPNet_DDCAT, PSPNet
 
+import torch.nn as nn
 import torch
 
 def load_model(path, device, mode="normal"):
