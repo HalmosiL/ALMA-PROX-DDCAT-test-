@@ -11,8 +11,6 @@ import torch.nn.parallel
 import torch.utils.data
 import torch.nn as nn
 
-mean = [0.485, 0.456, 0.406]
-
 cv2.ocl.setUseOpenCL(False)
 
 def predict(model, image, target, device, attack=None):
