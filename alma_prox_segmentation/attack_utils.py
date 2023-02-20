@@ -73,8 +73,6 @@ def run_attack(
                 
             logits_arr.append(log_pred)
             labels_arr.append(label)
-            
-            print("ACC:", (label == log_pred.argmax(dim=0)).sum() / ((449*449) - (label==255).sum()))
 
         logits = torch.zeros(19, 898, 1796)
         label = torch.zeros(1, 898, 1796)
@@ -154,8 +152,6 @@ def run_attack(
 
             if return_adv:
                 adv_images.append(adv_images_arr[k].cpu().clone())
-
-            print(adv_images_arr[k].shape)
                 
             log_pred = predict(
               model=model,
