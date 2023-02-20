@@ -21,14 +21,16 @@ def predict(model, image, target, device, attack=None):
         with torch.no_grad():
             output = model(adver_input)
             output_normal = model(input)
-            
-        output_ = F.softmax(output, dim=1)
+        
+        print(output.shape)
+        
+        output_ = F.softmax(output, dim=0)
         output_ = output_[0]
         
         print(output_.shape)
         print(target.shape)
         
-        output_normal = F.softmax(output_normal, dim=1)
+        output_normal = F.softmax(output_normal, dim=0)
         output_normal = output_normal[0]
         
         print(output_.shape)
