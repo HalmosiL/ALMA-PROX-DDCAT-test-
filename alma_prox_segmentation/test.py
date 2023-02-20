@@ -43,3 +43,11 @@ loader, _, _ = get_cityscapes_resized(
 )
 
 input, target, label_path = next(iter(loader))
+
+log_pred = predict(
+    model=model,
+    image=input,
+    target=target,
+    device=device,
+    attack=None
+)
