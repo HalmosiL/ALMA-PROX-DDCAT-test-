@@ -11,20 +11,9 @@ import torch.nn.parallel
 import torch.utils.data
 import torch.nn as nn
 
-def get_args():
-    return {
-        "classes": 19,
-        "crop_h": 449,
-        "crop_w": 449,
-        "scales": [1.0],
-        "base_size": 1024
-    }
-
 mean = [0.485, 0.456, 0.406]
 
 cv2.ocl.setUseOpenCL(False)
-
-args = get_args()
 
 def predict(model, image, target, device, attack=None):
     input = image.float()
