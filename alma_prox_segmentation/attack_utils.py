@@ -84,12 +84,9 @@ def run_attack(
 
         for x in range(2):
             for y in range(4):
-                print(logits_arr[d][0].shape)
-                print(labels_arr[d][0].shape)
-              
-                logits[:, x*449:(x+1)*449, y*449:(y+1)*449] = logits_arr[d][0]
-                label[:, x*449:(x+1)*449, y*449:(y+1)*449] = labels_arr[d][0]
-                attack_label[:, x*449:(x+1)*449, y*449:(y+1)*449] = attack_label_arr[d][0]
+                logits[:, x*449:(x+1)*449, y*449:(y+1)*449] = logits_arr[d]
+                label[:, x*449:(x+1)*449, y*449:(y+1)*449] = labels_arr[d]
+                attack_label[:, x*449:(x+1)*449, y*449:(y+1)*449] = attack_label_arr[d]
                 d += 1
 
         logits = logits.reshape(1, 19, 898, 1796).to(device)
@@ -178,7 +175,7 @@ def run_attack(
 
         for x in range(2):
             for y in range(4):
-                adv_pred[:, x*449:(x+1)*449, y*449:(y+1)*449] = adv_logits_arr[d][0]
+                adv_pred[:, x*449:(x+1)*449, y*449:(y+1)*449] = adv_logits_arr[d]
                 image_full[:, x*449:(x+1)*449, y*449:(y+1)*449] = images[k]
                 adv_image_full[:, x*449:(x+1)*449, y*449:(y+1)*449] = adv_images_arr[k]
 
