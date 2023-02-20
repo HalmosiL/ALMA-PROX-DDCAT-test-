@@ -22,7 +22,7 @@ def predict(model, image, target, device, attack=None):
             output = model(adver_input)
             output_normal = model(input)
             
-        output_ = F.softmax(output_, dim=1)
+        output_ = F.softmax(output, dim=1)
         output_ = output_[0]
         
         output_normal = F.softmax(output_normal, dim=1)
