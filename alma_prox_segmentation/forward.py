@@ -7,6 +7,8 @@ def predict(model, image, target, device, attack=None):
 
     input = input.to(device)
     target = target.to(device)
+    
+    print(target)
 
     if attack is not None:
         adver_input = attack(
