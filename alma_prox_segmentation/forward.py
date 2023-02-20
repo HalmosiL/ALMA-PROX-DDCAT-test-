@@ -22,11 +22,17 @@ def predict(model, image, target, device, attack=None):
             output = model(adver_input)
             output_normal = model(input)
             
-        print(output.shape)
+        output_ = F.softmax(output_, dim=1)
+        output_ = output_[0]
+        
+        output_normal = F.softmax(output_normal, dim=1)
+        output_normal = output_normal[0]
+        
+        print(output_.shape)
         print(target.shape)
         
-        print((target == output.argmax(1)).sum() / ((449*449) - (target==255).sum()))
-        print((target == output_normal.argmax(1)).sum() / ((449*449) - (target==255).sum()))
+        print((target == output_.argmax(0)).sum() / ((449*449) - (target==255).sum()))
+        print((target == output_normal.argmax(0)).sum() / ((449*449) - (target==255).sum()))
         
     else:
         with torch.no_grad():
