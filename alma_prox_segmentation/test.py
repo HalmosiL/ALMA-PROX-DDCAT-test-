@@ -28,15 +28,12 @@ def get_cityscapes_resized(root="", size=None, split="", num_images=None, batch_
         pin_memory=True
     )
 
-    with open(image_list_path, 'r') as f:       
-        image_list = np.array([line.split()[0] for line in f]).flatten()
-
-    return loader, label_map_cityscapes, image_list
+    return loader
 
 device = "cuda:2"
 model = load_model("/models/cityscapes/pspnet/ddcat/train_epoch_400.pth", device)
 
-loader, _, _ = get_cityscapes_resized(
+loader = get_cityscapes_resized(
     root="./data/cityscapes/",
     size=None,
     split="val",
