@@ -21,7 +21,7 @@ def run_attack(
                 return_adv=False
             ):
     device = next(model.parameters()).device
-    targeted = True if target is not None else False
+    targeted = False
     loader_length = len(loader)
 
     start, end = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)
