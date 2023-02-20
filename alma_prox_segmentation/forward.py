@@ -48,4 +48,7 @@ def predict(model, image, target, device, attack=None):
     output = F.softmax(output, dim=1)
     output = output[0]
 
+    if attack is not None:
+        return output, adver_input
+    
     return output
