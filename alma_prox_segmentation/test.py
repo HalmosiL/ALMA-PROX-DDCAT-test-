@@ -41,7 +41,7 @@ loader = get_cityscapes_resized(
     batch_size=1
 )
 
-input, target, label_path = next(iter(loader))
+input, target = next(iter(loader))
 
 log_pred = predict(
     model=model,
