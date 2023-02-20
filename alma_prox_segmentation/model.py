@@ -2,7 +2,7 @@ from network import PSPNet_DDCAT, PSPNet
 
 import torch
 
-def load_model(path, device, mode="ddcat"):
+def load_model(path, device, mode="normal"):
     print(device)
 
     if mode == "ddcat":
