@@ -2,6 +2,7 @@ import transforms as transform
 from dataset import SemData
 from forward import predict
 from model import load_model
+from dataset import SemDataSplit
 
 import numpy as np
 import torch
