@@ -9,6 +9,7 @@ from torch import Tensor, nn
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 from utils import ConfusionMatrix
+from forward import predict
 
 def run_attack(
                 model,
@@ -62,7 +63,15 @@ def run_attack(
             else:
                 attack_label_arr.append(label)
 
-            logits_arr.append(model(image))
+            log_pred = predict(
+              model=model,
+              image=image,
+              target=label,
+              device=device,
+              attack=None
+            )
+                
+            logits_arr.append(log_pred)
             labels_arr.append(label)
 
         logits = torch.zeros(19, 898, 1796)
