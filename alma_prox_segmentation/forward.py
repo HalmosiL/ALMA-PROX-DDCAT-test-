@@ -26,7 +26,7 @@ cv2.ocl.setUseOpenCL(False)
 
 args = get_args()
 
-def net_process(model, image, target, device, attack=None):
+def predict(model, image, target, device, attack=None):
     input = image.float()
     target = target.long()
 
