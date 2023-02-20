@@ -25,6 +25,9 @@ def predict(model, image, target, device, attack=None):
         output_ = F.softmax(output, dim=1)
         output_ = output_[0]
         
+        print(output_.shape)
+        print(target.shape)
+        
         output_normal = F.softmax(output_normal, dim=1)
         output_normal = output_normal[0]
         
