@@ -43,6 +43,9 @@ loader = get_cityscapes_resized(
 
 input, target = next(iter(loader))
 
+input = input[0].to(device)
+target = target[0].to(device)
+
 log_pred = predict(
     model=model,
     image=input,
