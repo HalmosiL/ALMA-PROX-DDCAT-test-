@@ -1,5 +1,6 @@
 import transforms as transform
 from dataset import SemData
+from forward import predict
 
 import numpy as np
 import torch
