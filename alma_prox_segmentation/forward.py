@@ -30,7 +30,7 @@ def predict(model, image, target, device, attack=None):
         print(output_.shape)
         print(target.shape)
         
-        output_ = output_[0].argmax(0)
+        output_ = output_.argmax(0)
         
         print(output_.shape)
         
@@ -39,7 +39,7 @@ def predict(model, image, target, device, attack=None):
         
         print(output_.shape)
       
-        output_normal = output_normal[0].argmax(0)
+        output_normal = output_normal.argmax(0)
         
         print((target == output_).sum() / ((449*449) - (target==255).sum()))
         print((target == output_normal).sum() / ((449*449) - (target==255).sum()))
