@@ -1,17 +1,5 @@
-import os
-import time
-import argparse
-
-import cv2
-import numpy as np
 import torch
-import torch.backends.cudnn as cudnn
 import torch.nn.functional as F
-import torch.nn.parallel
-import torch.utils.data
-import torch.nn as nn
-
-cv2.ocl.setUseOpenCL(False)
 
 def predict(model, image, target, device, attack=None):
     input = image.float()
