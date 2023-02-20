@@ -153,7 +153,15 @@ def run_attack(
             if return_adv:
                 adv_images.append(adv_images_arr[k].cpu().clone())
 
-            adv_logits_arr.append(model(adv_images_arr[k]))
+            log_pred = predict(
+              model=model,
+              image=adv_images_arr[k],
+              target=attack_label_arr[k],
+              device=device,
+              attack=None
+            )
+                
+            adv_logits_arr.append(log_pred)
 
         adv_pred = torch.zeros(19, 898, 1796).to(device)
         image_full = torch.zeros(3, 898, 1796).to(device)
