@@ -46,10 +46,24 @@ input, target = next(iter(loader))
 input = input[0].to(device)
 target = target[0].to(device)
 
-log_pred = predict(
+pred = predict(
     model=model,
     image=input,
     target=target,
     device=device,
     attack=None
 )
+
+print(input)
+
+pred = torch.argmax(pred, dim=0)
+
+print(pred)
+print(target)
+
+print(pred.shape)
+print(target.shape)
+
+target = target[0]
+
+print((target == pred).sum() / ((449*449) - (target==255).sum()))
