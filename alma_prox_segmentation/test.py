@@ -68,26 +68,30 @@ def model_prediction(input_, target_, model, device):
 
     return pred, label
 
-device = "cuda:2"
-model = load_model("/models/cityscapes/pspnet/ddcat/train_epoch_400.pth", device).eval()
+def test():
+    device = "cuda:2"
+    model = load_model("/models/cityscapes/pspnet/ddcat/train_epoch_400.pth", device).eval()
 
-dataset_ = get_cityscapes_resized(
-    root="./data/cityscapes/",
-    size=None,
-    split="val",
-    num_images=1,
-    batch_size=1
-)
+    dataset_ = get_cityscapes_resized(
+        root="./data/cityscapes/",
+        size=None,
+        split="val",
+        num_images=1,
+        batch_size=1
+    )
 
-input_n, target_n = dataset_.__getitem__(1)
-pred, label = model_prediction(input_n, target_n, model, device)
+    input_n, target_n = dataset_.__getitem__(1)
+    pred, label = model_prediction(input_n, target_n, model, device)
 
-print(pred)
-print(label)
+    print(pred)
+    print(label)
 
-print(pred.shape)
-print(label.shape)
+    print(pred.shape)
+    print(label.shape)
 
-label = label[0]
+    label = label[0]
 
-print((label == pred).sum() / ((898*1796) - (label==255).sum()))
+    print((label == pred).sum() / ((898*1796) - (label==255).sum()))
+
+if __name__ == "__main__":
+    test()
