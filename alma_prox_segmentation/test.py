@@ -70,7 +70,7 @@ def model_prediction(input_, target_, model, device):
 
 def test():
     device = "cuda:2"
-    model = load_model("/models/cityscapes/pspnet/ddcat/train_epoch_400.pth", device).eval()
+    model = load_model("/models/cityscapes/pspnet/sat/train_epoch_400.pth", device).eval()
 
     dataset_ = get_cityscapes_resized(
         root="./data/cityscapes/",
