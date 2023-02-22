@@ -25,7 +25,7 @@ def get_cityscapes_resized(root="", size=None, split="", num_images=None, batch_
 
     return dataset
 
-def model_prediction(input_, target_):
+def model_prediction(input_, target_, model, device):
     logits_arr = []
     labels_arr = []
 
@@ -80,7 +80,7 @@ dataset_ = get_cityscapes_resized(
 )
 
 input_n, target_n = dataset_.__getitem__(1)
-pred, label = model_prediction(input_n, target_n)
+pred, label = model_prediction(input_n, target_n, model, device)
 
 print(pred)
 print(label)
