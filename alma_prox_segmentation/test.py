@@ -13,19 +13,14 @@ def get_cityscapes_resized(root="", size=None, split="", num_images=None, batch_
         [transform.ToTensor(),]
     )
 
-    image_list_path = root + "/" + split + ".txt"
-
-    loader = torch.utils.data.DataLoader(   
-        dataset=SemDataSplit(
-            split=split,
-            data_root=root,
-            data_list=image_list_path,
-            transform=val_transform,
-            num_of_images=num_images
-        ),
-        batch_size=1,
-        num_workers=1,
-        pin_memory=True
+    image_list_path = root + "/" + split + ".txt"  
+    
+    dataset=SemDataSplit(
+        split=split,
+        data_root=root,
+        data_list=image_list_path,
+        transform=val_transform,
+        num_of_images=num_images
     )
 
     return loader
@@ -33,7 +28,7 @@ def get_cityscapes_resized(root="", size=None, split="", num_images=None, batch_
 device = "cuda:2"
 model = load_model("/models/cityscapes/pspnet/ddcat/train_epoch_400.pth", device).eval()
 
-loader = get_cityscapes_resized(
+dataset_ = get_cityscapes_resized(
     root="./data/cityscapes/",
     size=None,
     split="val",
@@ -41,7 +36,7 @@ loader = get_cityscapes_resized(
     batch_size=1
 )
 
-input, target = next(iter(loader))
+input, target = dataset_.__getitem__(1)
 
 input = input[0].to(device)
 target = target[0].to(device)
@@ -53,8 +48,6 @@ pred = predict(
     device=device,
     attack=None
 )
-
-print(input)
 
 pred = torch.argmax(pred, dim=0)
 
