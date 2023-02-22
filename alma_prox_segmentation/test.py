@@ -25,20 +25,7 @@ def get_cityscapes_resized(root="", size=None, split="", num_images=None, batch_
 
     return dataset
 
-device = "cuda:2"
-model = load_model("/models/cityscapes/pspnet/ddcat/train_epoch_400.pth", device).eval()
-
-dataset_ = get_cityscapes_resized(
-    root="./data/cityscapes/",
-    size=None,
-    split="val",
-    num_images=1,
-    batch_size=1
-)
-
-input_, target_ = dataset_.__getitem__(1)
-
-def model_prediction():
+def model_prediction(input_, target_):
     logits_arr = []
     labels_arr = []
 
@@ -73,11 +60,28 @@ def model_prediction():
             label[:, x*449:(x+1)*449, y*449:(y+1)*449] = labels_arr[d]
             d += 1
 
-pred = logits.reshape(19, 898, 1796)
-pred = torch.argmax(pred, dim=0)
+    pred = logits.reshape(19, 898, 1796)
+    pred = torch.argmax(pred, dim=0)
 
-pred = pred.cpu()
-label = label.cpu()
+    pred = pred.cpu()
+    label = label.cpu()
+
+    return pred, label
+
+device = "cuda:2"
+model = load_model("/models/cityscapes/pspnet/ddcat/train_epoch_400.pth", device).eval()
+
+dataset_ = get_cityscapes_resized(
+    root="./data/cityscapes/",
+    size=None,
+    split="val",
+    num_images=1,
+    batch_size=1
+)
+
+input_, target_ = dataset_.__getitem__(1)
+
+pred, label = model_prediction(input_, target_)
 
 print(pred)
 print(label)
