@@ -30,7 +30,6 @@ def get_alma_prox(
 ):
     
     if norm == float('inf'):
-        _log.warning('Divided init_lr_distance by 255')
         init_lr_distance = init_lr_distance / 255
         
     attack = partial(alma_prox_seg, norm=norm, num_steps=num_steps, α=alpha, lr_reduction=lr_reduction, ρ_init=rho_init,
