@@ -36,14 +36,14 @@ dataset_ = get_cityscapes_resized(
     batch_size=1
 )
 
-input, target = dataset_.__getitem__(1)
+input_, target_ = dataset_.__getitem__(1)
 
 logits_arr = []
 labels_arr = []
 
-for k in range(len(input)):
-    input = input[k].to(device)
-    target = target[k].to(device)
+for k in range(len(input_)):
+    input = input_[k].to(device)
+    target = target_[k].to(device)
     
     print(input.shape)
     
