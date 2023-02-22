@@ -75,6 +75,9 @@ for x in range(2):
 pred = logits.reshape(19, 898, 1796).to(device)
 pred = torch.argmax(pred, dim=0)
 
+logits = logits.cpu()
+label = label.cpu()
+
 print(pred)
 print(label)
 
