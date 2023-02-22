@@ -55,7 +55,7 @@ def get_cityscapes_resized(root="", size=None, split="", num_images=None, batch_
 
     return dataset
 
-def model_prediction(input_, target_, model, device):
+def model_prediction(input_, target_, model, device, attack):
     logits_arr = []
     labels_arr = []
 
@@ -68,12 +68,12 @@ def model_prediction(input_, target_, model, device):
         input = input.reshape(1, *input.shape)
         target = target.reshape(1, *target.shape)
 
-        pred = predict(
+        pred, attack_image = predict(
             model=model,
             image=input,
             target=target,
             device=device,
-            attack=None
+            attack=attack
         )
 
         logits_arr.append(pred)
@@ -113,7 +113,7 @@ def test():
     )
 
     input_n, target_n = dataset_.__getitem__(1)
-    pred, label = model_prediction(input_n, target_n, model, device)
+    pred, label = model_prediction(input_n, target_n, model, device, attack)
 
     print(pred)
     print(label)
