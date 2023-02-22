@@ -38,39 +38,40 @@ dataset_ = get_cityscapes_resized(
 
 input_, target_ = dataset_.__getitem__(1)
 
-logits_arr = []
-labels_arr = []
+def model_prediction():
+    logits_arr = []
+    labels_arr = []
 
-for k in range(len(input_)):
-    input = input_[k].to(device)
-    target = target_[k].to(device)
-    
-    print(input.shape)
-    
-    input = input.reshape(1, *input.shape)
-    target = target.reshape(1, *target.shape)
+    for k in range(len(input_)):
+        input = input_[k].to(device)
+        target = target_[k].to(device)
 
-    pred = predict(
-        model=model,
-        image=input,
-        target=target,
-        device=device,
-        attack=None
-    )
+        print(input.shape)
 
-    logits_arr.append(pred)
-    labels_arr.append(target)
+        input = input.reshape(1, *input.shape)
+        target = target.reshape(1, *target.shape)
 
-logits = torch.zeros(19, 898, 1796)
-label = torch.zeros(1, 898, 1796)
+        pred = predict(
+            model=model,
+            image=input,
+            target=target,
+            device=device,
+            attack=None
+        )
 
-d = 0
+        logits_arr.append(pred)
+        labels_arr.append(target)
 
-for x in range(2):
-    for y in range(4):
-        logits[:, x*449:(x+1)*449, y*449:(y+1)*449] = logits_arr[d]
-        label[:, x*449:(x+1)*449, y*449:(y+1)*449] = labels_arr[d]
-        d += 1
+    logits = torch.zeros(19, 898, 1796)
+    label = torch.zeros(1, 898, 1796)
+
+    d = 0
+
+    for x in range(2):
+        for y in range(4):
+            logits[:, x*449:(x+1)*449, y*449:(y+1)*449] = logits_arr[d]
+            label[:, x*449:(x+1)*449, y*449:(y+1)*449] = labels_arr[d]
+            d += 1
 
 pred = logits.reshape(19, 898, 1796)
 pred = torch.argmax(pred, dim=0)
