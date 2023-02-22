@@ -7,10 +7,7 @@ from dataset import SemDataSplit
 import numpy as np
 import torch
 import cv2
-
-from adv_lib.attacks.segmentation import (
-    alma_prox as alma_prox_seg
-)
+import alma_prox as alma_prox_seg
 
 from functools import partial
 
