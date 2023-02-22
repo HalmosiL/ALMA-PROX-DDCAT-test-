@@ -230,8 +230,8 @@ def alma_prox(model: nn.Module,
     step_found = torch.full_like(lr, num_steps // 2)
 
     for i in range(num_steps):
-
-        adv_inputs = inputs + δ
+        e = 0.01
+        adv_inputs = torch.min(torch.max(inputs + δ, inputs - e), inputs + e)
         logits = model(adv_inputs)
         dist = δ.data.flatten(1).norm(p=norm, dim=1)
 
