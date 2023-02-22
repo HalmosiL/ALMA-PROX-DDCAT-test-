@@ -7,7 +7,7 @@ from dataset import SemDataSplit
 import numpy as np
 import torch
 import cv2
-import alma_prox as alma_prox_seg
+from alma_prox import alma_prox as alma_prox_seg
 
 from functools import partial
 
