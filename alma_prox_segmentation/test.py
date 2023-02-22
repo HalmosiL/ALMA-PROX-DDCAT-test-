@@ -15,7 +15,7 @@ def get_cityscapes_resized(root="", size=None, split="", num_images=None, batch_
 
     image_list_path = root + "/" + split + ".txt"  
     
-    dataset=SemDataSplit(
+    dataset = SemDataSplit(
         split=split,
         data_root=root,
         data_list=image_list_path,
@@ -23,7 +23,7 @@ def get_cityscapes_resized(root="", size=None, split="", num_images=None, batch_
         num_of_images=num_images
     )
 
-    return loader
+    return dataset
 
 device = "cuda:2"
 model = load_model("/models/cityscapes/pspnet/ddcat/train_epoch_400.pth", device).eval()
