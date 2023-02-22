@@ -72,7 +72,7 @@ for x in range(2):
         label[:, x*449:(x+1)*449, y*449:(y+1)*449] = labels_arr[d]
         d += 1
 
-pred = logits.reshape(19, 898, 1796).to(device)
+pred = logits.reshape(19, 898, 1796)
 pred = torch.argmax(pred, dim=0)
 
 pred = pred.cpu()
@@ -86,4 +86,4 @@ print(label.shape)
 
 label = label[0]
 
-print((label == pred).sum() / ((449*449) - (label==255).sum()))
+print((label == pred).sum() / ((898*1796) - (label==255).sum()))
