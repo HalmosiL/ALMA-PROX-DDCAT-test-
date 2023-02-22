@@ -44,7 +44,7 @@ for k in range(len(input)):
     
     print(input.shape)
     
-    input = input.reshape(1, input.shape)
+    input = input.reshape(1, *input.shape)
     target = target.reshape(1, *target.shape)
 
     pred = predict(
