@@ -38,11 +38,11 @@ dataset_ = get_cityscapes_resized(
 
 input, target = dataset_.__getitem__(1)
 
-print("INPUT-SHAPE:", input.shape)
-print("TARGET-SHAPE:", target.shape)
-
 input = input[0].to(device)
 target = target[0].to(device)
+
+print("INPUT-SHAPE:", input.shape)
+print("TARGET-SHAPE:", target.shape)
 
 pred = predict(
     model=model,
