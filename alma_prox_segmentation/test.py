@@ -79,9 +79,8 @@ dataset_ = get_cityscapes_resized(
     batch_size=1
 )
 
-input_, target_ = dataset_.__getitem__(1)
-
-pred, label = model_prediction(input_, target_)
+input_n, target_n = dataset_.__getitem__(1)
+pred, label = model_prediction(input_n, target_n)
 
 print(pred)
 print(label)
