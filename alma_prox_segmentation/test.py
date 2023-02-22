@@ -83,4 +83,4 @@ print(label.shape)
 
 label = label[0]
 
-print((target == pred).sum() / ((449*449) - (target==255).sum()))
+print((label == pred).sum() / ((449*449) - (label==255).sum()))
