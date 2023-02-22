@@ -38,22 +38,29 @@ dataset_ = get_cityscapes_resized(
 
 input, target = dataset_.__getitem__(1)
 
-input = input[0].to(device)
-target = target[0].to(device)
+for k in range(len(input)):
+    input = input[k].to(device)
+    target = target[k].to(device)
 
-input = input.reshape(1, *input.shape)
-target = target.reshape(1, *target.shape)
+    input = input.reshape(1, input.shape)
+    target = target.reshape(1, *target.shape)
 
-print("INPUT-SHAPE:", input.shape)
-print("TARGET-SHAPE:", target.shape)
+    pred = predict(
+        model=model,
+        image=input,
+        target=target,
+        device=device,
+        attack=None
+    )
 
-pred = predict(
-    model=model,
-    image=input,
-    target=target,
-    device=device,
-    attack=None
-)
+    logits_arr.append(pred)
+    labels_arr.append(target)
+
+logits = torch.zeros(19, 898, 1796)
+label = torch.zeros(1, 898, 1796)
+attack_label = torch.zeros(1, 898, 1796)
+
+pred = logits_arr[0]
 
 pred = torch.argmax(pred, dim=0)
 
