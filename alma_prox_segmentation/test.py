@@ -63,18 +63,24 @@ for k in range(len(input_)):
 
 logits = torch.zeros(19, 898, 1796)
 label = torch.zeros(1, 898, 1796)
-attack_label = torch.zeros(1, 898, 1796)
 
-pred = logits_arr[0]
+d = 0
 
+for x in range(2):
+    for y in range(4):
+        logits[:, x*449:(x+1)*449, y*449:(y+1)*449] = logits_arr[d]
+        label[:, x*449:(x+1)*449, y*449:(y+1)*449] = labels_arr[d]
+        d += 1
+
+pred = logits.reshape(19, 898, 1796).to(device)
 pred = torch.argmax(pred, dim=0)
 
 print(pred)
-print(target)
+print(label)
 
 print(pred.shape)
-print(target.shape)
+print(label.shape)
 
-target = target[0]
+label = label[0]
 
 print((target == pred).sum() / ((449*449) - (target==255).sum()))
