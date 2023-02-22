@@ -41,6 +41,9 @@ input, target = dataset_.__getitem__(1)
 input = input[0].to(device)
 target = target[0].to(device)
 
+input = input.reshape(1, *input.shape)
+target = target.reshape(1, *target.shape)
+
 print("INPUT-SHAPE:", input.shape)
 print("TARGET-SHAPE:", target.shape)
 
