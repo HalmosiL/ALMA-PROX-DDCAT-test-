@@ -8,6 +8,37 @@ import numpy as np
 import torch
 import cv2
 
+from adv_lib.attacks.segmentation import (
+    alma_prox as alma_prox_seg
+)
+
+from functools import partial
+
+def get_alma_prox(
+    norm = float('inf'),
+    num_steps = 500,
+    alpha = 0.8,
+    lr_reduction = 0.1,
+    init_lr_distance = 16,
+    scale_min = 0.05,
+    scale_max = 1,
+    rho_init = 0.01,
+    mu_init=1e-4,
+    scale_init = None,
+    constraint_masking=True,
+    mask_decay=True
+):
+    
+    if norm == float('inf'):
+        _log.warning('Divided init_lr_distance by 255')
+        init_lr_distance = init_lr_distance / 255
+        
+    attack = partial(alma_prox_seg, norm=norm, num_steps=num_steps, α=alpha, lr_reduction=lr_reduction, ρ_init=rho_init,
+                     μ_init=mu_init, init_lr_distance=init_lr_distance, scale_min=scale_min, scale_max=scale_max,
+                     scale_init=scale_init, constraint_masking=constraint_masking, mask_decay=mask_decay)
+    name = f'ALMA_prox_L{norm}_{num_steps}'
+    return attack, name
+
 def get_cityscapes_resized(root="", size=None, split="", num_images=None, batch_size=1):
     val_transform = transform.Compose(
         [transform.ToTensor(),]
@@ -72,6 +103,8 @@ def test():
     device = "cuda:2"
     model = load_model("/models/cityscapes/pspnet/sat/train_epoch_400.pth", device).eval()
 
+    attack, name = get_alma_prox()
+    
     dataset_ = get_cityscapes_resized(
         root="./data/cityscapes/",
         size=None,
