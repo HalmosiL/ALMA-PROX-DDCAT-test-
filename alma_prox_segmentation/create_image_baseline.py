@@ -106,7 +106,9 @@ def model_prediction(input_, target_, model, device, attack):
 
 def test():
     device = "cuda:2"
-    model = load_model("/models/cityscapes/pspnet/sat/train_epoch_400.pth", device).eval()
+    
+    model_id = "sat" 
+    model = load_model("/models/cityscapes/pspnet/" + model_id + "/train_epoch_400.pth", device, mode=model_id).eval()
 
     attack, name = get_alma_prox()
     
