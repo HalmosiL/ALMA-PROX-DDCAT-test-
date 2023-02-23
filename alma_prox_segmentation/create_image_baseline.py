@@ -55,6 +55,9 @@ def get_cityscapes_resized(root="", size=None, split="", num_images=None, batch_
 def model_prediction(input_, target_, model, device, attack):
     logits_arr = []
     labels_arr = []
+    
+    normal_image_arr = []
+    adv_image_arr = []
 
     for k in range(len(input_)):
         input = input_[k].to(device)
@@ -75,7 +78,11 @@ def model_prediction(input_, target_, model, device, attack):
 
         logits_arr.append(pred)
         labels_arr.append(target)
+        normal_image_arr.append(input)
+        adv_image_arr.append(attack_image)
 
+    normal_image = torch.zeros(3, 898, 1796)
+    adv_image = torch.zeros(3, 898, 1796)
     logits = torch.zeros(19, 898, 1796)
     label = torch.zeros(1, 898, 1796)
 
@@ -85,6 +92,8 @@ def model_prediction(input_, target_, model, device, attack):
         for y in range(4):
             logits[:, x*449:(x+1)*449, y*449:(y+1)*449] = logits_arr[d]
             label[:, x*449:(x+1)*449, y*449:(y+1)*449] = labels_arr[d]
+            normal_image[:, x*449:(x+1)*449, y*449:(y+1)*449] = normal_image_arr[d].reshape(3, 449, 449)
+            adv_image[:, x*449:(x+1)*449, y*449:(y+1)*449] = adv_image_arr[d].reshape(3, 449, 449)
             d += 1
 
     pred = logits.reshape(19, 898, 1796)
@@ -93,7 +102,7 @@ def model_prediction(input_, target_, model, device, attack):
     pred = pred.cpu()
     label = label.cpu()
 
-    return pred, label
+    return pred, label, normal_image, adv_image
 
 def test():
     device = "cuda:2"
@@ -109,9 +118,16 @@ def test():
         batch_size=1
     )
 
+    save_path = "../../test/images/"
+    
     input_n, target_n = dataset_.__getitem__(1)
-    pred, label = model_prediction(input_n, target_n, model, device, attack)
+    pred, label, normal_image, adv_image = model_prediction(input_n, target_n, model, device, attack)
 
+    torch.save(pred, save_path + 'pred.pt')
+    torch.save(label, save_path + 'label.pt')
+    torch.save(normal_image, save_path + 'normal_image.pt')
+    torch.save(adv_image, save_path + 'adv_image.pt')
+    
     print(pred)
     print(label)
 
