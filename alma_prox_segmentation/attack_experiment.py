@@ -47,7 +47,7 @@ def main(cpu: bool,
 
     loader, label_func, image_list = get_dataset()
 
-    model_name = "no_defense"
+    model_name = "sat"
     
     #Function to get model load to the memorry
     model = get_model(
