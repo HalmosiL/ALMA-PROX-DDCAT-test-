@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch
 
 def load_model(path, device, mode="ddcat"):
-    print(device)
+    print(device, " | ", mode)
 
     if mode == "ddcat":
         model = PSPNet_DDCAT(
