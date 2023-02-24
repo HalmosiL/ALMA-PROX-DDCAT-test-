@@ -47,10 +47,12 @@ def main(cpu: bool,
 
     loader, label_func, image_list = get_dataset()
 
+    model_name = "no_defense"
+    
     #Function to get model load to the memorry
     model = get_model(
         device=device,
-        path="../../models/cityscapes/pspnet/ddcat/train_epoch_400.pth"
+        path="../../models/cityscapes/pspnet/" + model_name + "/train_epoch_400.pth"
     )
 
     attack, attack_name = get_attack()
