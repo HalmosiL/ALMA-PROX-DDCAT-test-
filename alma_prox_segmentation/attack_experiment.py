@@ -52,7 +52,8 @@ def main(cpu: bool,
     #Function to get model load to the memorry
     model = get_model(
         device=device,
-        path="../../models/cityscapes/pspnet/" + model_name + "/train_epoch_400.pth"
+        path="../../models/cityscapes/pspnet/" + model_name + "/train_epoch_400.pth",
+        mode=model_name
     )
 
     attack, attack_name = get_attack()
