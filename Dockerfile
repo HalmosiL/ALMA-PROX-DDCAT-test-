@@ -1,5 +1,4 @@
 FROM continuumio/miniconda3
-RUN conda create -n env python=3.9
+RUN conda env create -f ./alma_prox_segmentation/seg_attacks_env.yml
 RUN echo "source activate env" > ~/.bashrc
-RUN ./install.sh
 ENV PATH /opt/conda/envs/env/bin:$PATH
